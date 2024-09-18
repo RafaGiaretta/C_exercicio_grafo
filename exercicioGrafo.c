@@ -11,12 +11,11 @@ typedef struct {
 
 typedef no * grafo[8];
 
-
 void iniciarGrafo(grafo  g){
-	int i=1;
-	for (i = 1; i<8; i++){
+	int i=0;
+	for (i = 0; i<8; i++){
 		g[i] = (no *)malloc(sizeof(no));
-		g[i]->valor = NULL;
+		g[i]->valor = 0;
 		g[i]->proximo = NULL;
 	}
 	puts("Grafo Iniciado");
@@ -30,7 +29,9 @@ void preencherGrafo(grafo g, int vertice, int aresta){
 	
 	no * atual = (no*)malloc(sizeof(no)); // criei atual para comparar com o novo ^
 	atual = g[vertice];
-
+	if (atual->proximo == NULL){
+		atual->valor = aresta;
+	}
 	while(atual->proximo != NULL){
 		atual = atual->proximo;
 	}
@@ -80,14 +81,7 @@ int main(){
 	preencherGrafo(g, 7, 4);
 	preencherGrafo(g, 7, 5);
 	
-	mostrarGrafo(&g);
-	
-	
-	
-	
-		
-	
-	
+	mostrarGrafo(g);	
 	
 	return 0;
 }
