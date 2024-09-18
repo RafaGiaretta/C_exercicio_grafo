@@ -15,27 +15,27 @@ void iniciarGrafo(grafo  g){
 	int i=0;
 	for (i = 0; i<8; i++){
 		g[i] = (no *)malloc(sizeof(no));
-		g[i]->valor = 0;
+		g[i]->valor = NULL;
 		g[i]->proximo = NULL;
 	}
 	puts("Grafo Iniciado");
 }
 
 void preencherGrafo(grafo g, int vertice, int aresta){
-	
-	no * novo = (no*)malloc(sizeof(no)); // criei novo para ser a variavel que vai caminhar nas comparacoes
-	novo->valor = aresta;
-	novo->proximo = NULL;
-	
-	no * atual = (no*)malloc(sizeof(no)); // criei atual para comparar com o novo ^
-	atual = g[vertice];
-	if (atual->proximo == NULL){
-		atual->valor = aresta;
-	}
-	while(atual->proximo != NULL){
-		atual = atual->proximo;
-	}
-	atual->proximo = novo;
+    no *novo = (no*)malloc(sizeof(no));
+    novo->valor = aresta;
+    novo->proximo = NULL;
+
+    if (g[vertice]->valor == NULL) {
+        g[vertice]->valor = aresta;
+        g[vertice]->proximo = NULL;
+    } else {
+        no *atual = g[vertice];
+        while (atual->proximo != NULL) {
+            atual = atual->proximo;
+        }
+        atual->proximo = novo;
+    }
 	
 }
 
@@ -81,7 +81,7 @@ int main(){
 	preencherGrafo(g, 7, 4);
 	preencherGrafo(g, 7, 5);
 	
-	mostrarGrafo(g);	
+	mostrarGrafo(&g);	
 	
 	return 0;
 }
